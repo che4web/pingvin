@@ -7,6 +7,15 @@ class Raccoon(models.Model):
     age = models.IntegerField(verbose_name="Возраст")
     parent = models.ForeignKey('Raccoon',blank=True,null=True, verbose_name="Родитель")
     avatar = models.ImageField(blank=True,null=True, verbose_name="Аватар")
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ['raccoon-detail',(self.pk,)]
+    @models.permalink
+    def get_update_url(self):
+        return ['raccoon-update',(self.pk,)]
+
+
     class Meta:
         verbose_name='Енот'
         verbose_name_plural='Еноты'

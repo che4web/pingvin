@@ -17,10 +17,15 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from raccoonapp.views import RacconList,crt_view
+#from raccoonapp.views import RacconList,crt_view
+from raccoonapp.views import home_view, RaccoonListView,RaccoonDetailView,RaccoonUpdateView
 urlpatterns = [
-    url(r'^',crt_view),
-    url(r'^admin/r',RacconList.as_view()),
+ #   url(r'^',crt_view),
+#    url(r'^admin/r',RacconList.as_view()),
     url(r'^admin/', admin.site.urls),
+    #url(r'^$',home_view),
+    url(r'^raccoon/(?P<pk>\d+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),
+    url(r'^raccoon/(?P<pk>\d+)/edit/$',RaccoonUpdateView.as_view(),name="raccoon-update"),
+    url(r'^$',RaccoonListView.as_view()),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

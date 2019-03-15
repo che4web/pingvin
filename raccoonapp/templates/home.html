@@ -1,0 +1,12 @@
+hello  {{request.user}} !!
+
+<h1>Список енотов нашего сайта:</h1>
+Пример {{raccoon_m.raccoon_set}}
+
+способ 2
+<ul>
+{% for raccoon in raccoon_list %}
+<li>    {{raccoon}}</li>
+{%endfor%}
+
+</ul>

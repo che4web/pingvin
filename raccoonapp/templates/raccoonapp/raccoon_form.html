@@ -1,0 +1,10 @@
+{%extends 'base.html'%}
+{%block content%}
+первичный ключ:{{object.id}}<br>
+обект {{object}}
+<form method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<button class='btn btn-primary'>сохранить</button>
+</form>
+{%endblock%}

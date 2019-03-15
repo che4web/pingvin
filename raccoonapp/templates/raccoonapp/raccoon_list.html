@@ -1,3 +1,24 @@
-{%for r in object_list%}
-<div>{{r}}</div>
-{%endfor%}
+{% extends 'base.html'%}
+{%block content%}
+<form>
+    <input type="text" name="raccoon_name" value="{{request.GET.raccoon_name}}"><button class="btn btn-primary">поиск</button>
+</form>
+      <div class="row">
+          {% for raccoon in object_list %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <p class="card-text">{{raccoon}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{{raccoon.get_absolute_url }}"><button type="button" class="btn btn-sm btn-outline-secondary">Подробно</button></a>
+                    <a href="{{raccoon.get_update_url}}">   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+          {% endfor%}
+      </div>
+      {%endblock%}

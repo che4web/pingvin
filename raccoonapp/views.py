@@ -3,10 +3,18 @@ from raccoonapp.models import Raccoon,Photo
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView,UpdateView,DetailView
 # Create your views here.
+from raccoonapp.forms import SeachForm
 
 def home_view(request):
     raccoon_list = Raccoon.objects.all()
     context={'raccoon_list':raccoon_list}
+    if 'raccoon_name' in request.POST:
+        context['text'] = request.POST['raccoon_name']
+    if request.GET:
+        form  = SeachForm(request.GET)
+        context['form']=form
+        if form.is_valid():
+            context['text'] = form.cleaned_data['raccoon_name']
     response  = render(request,'home.html',context=context)
     return response
 
@@ -14,18 +22,23 @@ class RaccoonListView(ListView):
     model = Raccoon
     def get_queryset(self,*args,**kwargs):
         queryset = super(RaccoonListView,self).get_queryset(*args,**kwargs)
-        if 'raccoon_name' in self.request.GET:
-            name = self.request.GET['raccoon_name']
+        if 'raccoon_name' in self.request.POST:
+            #name = self.request.GET['raccoon_name']
+            name = self.request.POST['raccoon_name']
             queryset =queryset.filter(name__icontains=name)
         return queryset
 
 
     def get_context_data(self,*args,**kwargs):
-        context = super(RaccoonListView,self).get_context_data(*args,*kwargs)
+        context = super(RaccoonListView,self).get_context_data(*args,**kwargs)
         return context
 
 class RaccoonDetailView(DetailView):
     model =Raccoon
+    def get_context_data(self,*args,**kwargs):
+        context = super(RaccoonDetailView,self).get_context_data(*args,**kwargs)
+        context['data'] =self.kwargs['data']
+        return context
 class RaccoonUpdateView(UpdateView):
     model =Raccoon
     fields= '__all__'

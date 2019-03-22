@@ -13,17 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url,include
+from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 #from raccoonapp.views import RacconList,crt_view
 from raccoonapp.views import home_view, RaccoonListView,RaccoonDetailView,RaccoonUpdateView
 urlpatterns = [
- #   url(r'^',crt_view),
-#    url(r'^admin/r',RacconList.as_view()),
-    url(r'^admin/', admin.site.urls),
-    url(r'^$',home_view),
-    url(r'^raccoon/',include('raccoonapp.urls')),
+    url(r'^$',RaccoonListView.as_view()),
+    url(r'^(?P<pk>\d+)/edit/$',RaccoonUpdateView.as_view(),name="raccoon-update"),
+    url(r'^(?P<pk>\d+)/(?P<data>\w+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),
+    url(r'^(?P<pk>\d+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -9,19 +9,6 @@ def home_view(request):
     raccoon_list = Raccoon.objects.all()
     context={'raccoon_list':raccoon_list}
     context['form'] = CalcForm()
-    if request.GET:
-        form  = CalcForm(request.GET)
-        if form.is_valid():
-            a = form.cleaned_data['a']
-            b = form.cleaned_data['b']
-            operator = request.GET['operator']
-            if operator =="mult":
-                res = a*b
-            if operator == "plus":
-                res = a+b
-            context['res']=res
-        context['form']=form
-
     response  = render(request,'home.html',context=context)
     return response
 

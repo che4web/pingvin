@@ -1,0 +1,31 @@
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<form method="GET">
+<p><label for="id_a">a:</label> <input type="number" name="a" class="form-control" required="" id="id_a"></p>
+<p><label for="id_b">b:</label> <input type="number" name="b" class="form-control" required="" id="id_b"></p>
+
+    <input id="id_plus" type="submit" value="plus"  name="operator" class="btn btn-primary">
+    <input id="id_mult" type="submit" value="mult"  name="operator" class="btn btn-primary">
+    = <span id = "id_res"> </span>
+</form>
+<script>
+    var multiplu =    function(){
+                var a = $('#id_a').val()
+                var b  = $('#id_b').val()
+                var  res = a*b;
+                $("#id_res").text(res)
+        return false
+    }
+    var plus =    function(){
+                var a = $('#id_a').val()
+                var b  = $('#id_b').val()
+                var  res = +a+ +b;
+                $("#id_res").text(res)
+        return false
+
+    }
+    $('#id_mult').click(multiplu)
+    $('#id_plus').click(plus)
+
+
+</script>

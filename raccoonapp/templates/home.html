@@ -1,11 +1,40 @@
 {% extends 'base.html'%}
 {%block content%}
 <form method="GET">
-    {{form.as_p}}
-    <input type="submit" value="plus"  name="operator" class="btn btn-primary">
-    <input type="submit" value="mult"  name="operator" class="btn btn-primary">
-     = {{res}}
+<p><label for="id_a">a:</label> <input type="number" name="a" class="form-control" required="" id="id_a"></p>
+<p><label for="id_b">b:</label> <input type="number" name="b" class="form-control" required="" id="id_b"></p>
+
+    <input id="id_plus" type="submit" value="plus"  name="operator" class="btn btn-primary">
+    <input id="id_mult" type="submit" value="mult"  name="operator" class="btn btn-primary">
+    = 
+ <input type="number" name="res" class="form-control" required="" id="id_res">
+
 </form>
+<script>
+    var multiplu =    function(){
+                var a = $('#id_a').val()
+                var b  = $('#id_b').val()
+                var  res = a*b;
+                $("#id_res").val(res)
+
+    }
+    var plus =    function(){
+                var a = $('#id_a').val()
+                var b  = $('#id_b').val()
+                var  res = +a+ +b;
+                $("#id_res").val(res)
+                setTimeout(function(){
+                    $("res").submit()
+                },1000)
+                return false
+
+    }
+    $('#id_mult').click(multiplu);
+    $("#id_a").change(plus);
+    $("#id_b").change(multiplu);
+
+</script>
+</script>
 
 <form method="">
     {%csrf_token%}

@@ -1,20 +1,16 @@
 {% extends 'base.html'%}
 {%block content%}
-<form method="POST">
-    {%csrf_token%}
-    <input type="text" name="raccoon_name" value="{{request.POST.raccoon_name}}">
-    <input type="submit" value="yes"  name="button" class="btn btn-primary">
-    <input type="submit" value="no"  name="button" class="btn btn-primary">
-    <button class="btn btn-primary">поиск</button>
+<form method="GET">
+    {{form.as_p}}
+    <input type="submit" value="plus"  name="operator" class="btn btn-primary">
+    <input type="submit" value="mult"  name="operator" class="btn btn-primary">
+     = {{res}}
 </form>
 
 <form method="">
     {%csrf_token%}
-    {{form}}
-    <button class="btn btn-primary">поиск</button>
     </form>
       <div class="row">
-          {{text}}
           {% for raccoon in object_list %}
         <div class="col-md-4">
           <div class="card mb-4 shadow-sm">

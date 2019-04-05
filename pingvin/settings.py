@@ -26,7 +26,7 @@ SECRET_KEY = '@%tzl+8pv#*kk_#l@maoow8_qosv#togf=p*l2&n*ygw3joof-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+STATIC_ROOT = '/' + os.path.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT ='/'+ posixpath.join(*(BASE_DIR.split(os.path.sep) + ['media']))

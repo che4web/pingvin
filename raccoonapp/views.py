@@ -3,18 +3,25 @@ from raccoonapp.models import Raccoon,Photo
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView,UpdateView,DetailView
 # Create your views here.
-from raccoonapp.forms import SeachForm
+from raccoonapp.forms import SeachForm,CalcForm
 
 def home_view(request):
     raccoon_list = Raccoon.objects.all()
     context={'raccoon_list':raccoon_list}
-    if 'raccoon_name' in request.POST:
-        context['text'] = request.POST['raccoon_name']
+    context['form'] = CalcForm()
     if request.GET:
-        form  = SeachForm(request.GET)
-        context['form']=form
+        form  = CalcForm(request.GET)
         if form.is_valid():
-            context['text'] = form.cleaned_data['raccoon_name']
+            a = form.cleaned_data['a']
+            b = form.cleaned_data['b']
+            operator = request.GET['operator']
+            if operator =="mult":
+                res = a*b
+            if operator == "plus":
+                res = a+b
+            context['res']=res
+        context['form']=form
+
     response  = render(request,'home.html',context=context)
     return response
 

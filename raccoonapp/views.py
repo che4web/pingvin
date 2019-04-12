@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from raccoonapp.models import Raccoon,Photo
+from raccoonapp.models import Raccoon,Photo,Yummy
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView,UpdateView,DetailView
 # Create your views here.
-from raccoonapp.forms import SeachForm,CalcForm
+from raccoonapp.forms import SeachForm,CalcForm,YammuFrom
 
 def home_view(request):
     raccoon_list = Raccoon.objects.all()
@@ -36,3 +36,19 @@ class RaccoonDetailView(DetailView):
 class RaccoonUpdateView(UpdateView):
     model =Raccoon
     fields= '__all__'
+
+
+def yammy_view(request):
+    context={}
+    if request.GET:
+        form = YammuFrom(request.GET)
+        context['form'] = form
+        if form.is_valid():
+            yummy = Yummy.objects.filter(raccoon=form.cleaned_data['raccoon']).filter(date=form.cleaned_data['date'])
+            context['yummy'] = yummy
+
+    else:
+        context['form'] = YammuFrom()
+    response  = render(request,'yummy.html',context=context)
+    return response
+

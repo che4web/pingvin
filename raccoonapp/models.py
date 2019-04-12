@@ -2,11 +2,13 @@ from django.db import models
 from django.utils.safestring import mark_safe
 
 # Create your models here.
+
 class Raccoon(models.Model):
     name = models.CharField(max_length=255,verbose_name="Имя")
     age = models.IntegerField(verbose_name="Возраст")
     parent = models.ForeignKey('Raccoon',blank=True,null=True, verbose_name="Родитель")
     avatar = models.ImageField(blank=True,null=True, verbose_name="Аватар")
+
 
     @models.permalink
     def get_absolute_url(self):
@@ -27,6 +29,12 @@ class Raccoon(models.Model):
         return self.name
     def __str__(self):
         return self.name
+
+class  Yummy(models.Model):
+    name = models.CharField(max_length=255)
+    raccoon = models.ForeignKey(Raccoon)
+    date = models.DateField()
+
 
 class Photo(models.Model):
     img = models.ImageField()

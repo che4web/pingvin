@@ -1,0 +1,43 @@
+{% extends 'base.html'%}
+{%block content%}
+<h1> Кто что ел?</h1>
+<form >
+    {{form}}
+    <button class="btn btn-primary add"> еще один</button>
+</form>
+    <h2> Списк вкусняшек</h2>
+<ul>
+    {% for y in yummy %}
+    <li>{{y.name}}</li>
+    {%endfor%}
+</ul>
+<script>
+    var addElem = function(){
+        $("#id_list").append("<li>еще один</li>")
+    }
+$(".add").click(addElem)
+
+
+</script>
+<form method="">
+    {%csrf_token%}
+</form>
+<div class="row">
+    {% for raccoon in object_list %}
+    <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <p class="card-text">{{raccoon}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{{raccoon.get_absolute_url }}"><button type="button" class="btn btn-sm btn-outline-secondary">Подробно</button></a>
+                        <a href="{{raccoon.get_update_url}}">   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+</div>
+{%endblock%}

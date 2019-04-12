@@ -1,5 +1,5 @@
 from django.contrib import admin
-from raccoonapp.models import Raccoon,Photo
+from raccoonapp.models import Raccoon,Photo, Yummy
 # Register your models here.
 #admin.site.register(Raccoon)
 
@@ -11,6 +11,10 @@ class PhotoInline(admin.TabularInline):
     model = Photo
     extra=1
 
+class YummyInline(admin.TabularInline):
+    model = Yummy
+    extra=2
+
 @admin.register(Raccoon)
 class RaccoonAdmin(admin.ModelAdmin):
     pass
@@ -18,4 +22,4 @@ class RaccoonAdmin(admin.ModelAdmin):
     list_editable =['parent']
     list_filter=['parent','age']
     readonly_fields= ['admin_t']
-    inlines= [PhotoInline]
+    inlines= [PhotoInline,YummyInline]

@@ -19,8 +19,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 #from raccoonapp.views import RacconList,crt_view
 from raccoonapp.views import home_view, RaccoonListView,RaccoonDetailView,RaccoonUpdateView
+from raccoonapp import views
 urlpatterns = [
     url(r'^$',RaccoonListView.as_view()),
+    url(r'^yummy$',views.yammy_view),
     url(r'^(?P<pk>\d+)/edit/$',RaccoonUpdateView.as_view(),name="raccoon-update"),
     url(r'^(?P<pk>\d+)/(?P<data>\w+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),
     url(r'^(?P<pk>\d+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),

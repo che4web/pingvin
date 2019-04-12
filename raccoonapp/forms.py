@@ -1,4 +1,5 @@
 from django import forms
+from raccoonapp.models import Yummy
 
 class BootstrapForm(forms.Form):
     def __init__(self,*args,**kwargs):
@@ -15,3 +16,7 @@ class CalcForm(BootstrapForm):
     a = forms.IntegerField(label='a')
     b = forms.IntegerField(label='b')
 
+class YammuFrom(forms.ModelForm):
+    class Meta:
+        model =Yummy
+        fields =['date','raccoon']

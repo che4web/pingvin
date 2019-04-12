@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import ListView,UpdateView,DetailView
 # Create your views here.
 from raccoonapp.forms import SeachForm,CalcForm,YammuFrom
-
+import json
 def home_view(request):
     raccoon_list = Raccoon.objects.all()
     context={'raccoon_list':raccoon_list}
@@ -51,4 +51,18 @@ def yammy_view(request):
         context['form'] = YammuFrom()
     response  = render(request,'yummy.html',context=context)
     return response
+
+def yummy_json(request):
+
+    if request.POST:
+        form = YammuFrom(request.POST)
+        if form.is_valid():
+            yummy = Yummy.objects.filter(raccoon=form.cleaned_data['raccoon']).filter(date=form.cleaned_data['date'])
+    ls = []
+    for y in yummy:
+        ls.append({'name':y.name})
+
+    #date= json.dumps(ls)
+    return JsonResponse(ls,safe=False)
+
 

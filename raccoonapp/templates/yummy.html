@@ -1,21 +1,36 @@
 {% extends 'base.html'%}
 {%block content%}
 <h1> Кто что ел?</h1>
-<form >
+<form method="POST">
     {{form}}
-    <button class="btn btn-primary add"> еще один</button>
+    {% csrf_token %}
 </form>
+    <button class="btn btn-primary add"> еще один</button>
     <h2> Списк вкусняшек</h2>
-<ul>
+<ul id="id_list">
     {% for y in yummy %}
     <li>{{y.name}}</li>
     {%endfor%}
 </ul>
 <script>
+
     var addElem = function(){
-        $("#id_list").append("<li>еще один</li>")
+        var date = $("#id_date").val()
+        var raccoon= $("#id_raccoon").val()
+        var csrf_token = '{{csrf_token}}'
+        $.post( "/raccoon/yummy_json",{'date':date,'raccoon':raccoon,'csrfmiddlewaretoken':csrf_token}).done( function( data ) {
+            console.log(data)
+            $('#id_list').empty()
+            for(i=0;i<data.length;i++){
+                $("#id_list").append('<li>' +data[i].name+'</li>')
+            }
+        });
+
+        return false
     }
 $(".add").click(addElem)
+$("#id_raccoon").on('change',addElem)
+$("#id_date").on('change',addElem)
 
 
 </script>

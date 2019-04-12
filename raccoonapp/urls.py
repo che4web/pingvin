@@ -23,6 +23,7 @@ from raccoonapp import views
 urlpatterns = [
     url(r'^$',RaccoonListView.as_view()),
     url(r'^yummy$',views.yammy_view),
+    url(r'^yummy_json$',views.yummy_json),
     url(r'^(?P<pk>\d+)/edit/$',RaccoonUpdateView.as_view(),name="raccoon-update"),
     url(r'^(?P<pk>\d+)/(?P<data>\w+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),
     url(r'^(?P<pk>\d+)/$',RaccoonDetailView.as_view(),name="raccoon-detail"),
